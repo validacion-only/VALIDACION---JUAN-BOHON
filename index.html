@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -25,7 +26,7 @@
         }
 
         .container {
-            max-width: 700px; 
+            max-width: 800px; /* Aumenté el ancho máximo del contenedor para dar más espacio */
             margin: 0 auto;
             background: #ffffff;
             padding: 40px;
@@ -69,19 +70,28 @@
             margin-bottom: 30px;
         }
         
-        /* Layout en cuadrícula (Grid) */
+        /* --- NUEVO LAYOUT PARA LOS CAMPOS (Para que quepan textos largos) --- */
         .form-row {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 1fr; /* Mitad y mitad */
             gap: 20px;
             margin-bottom: 15px;
         }
-        .form-row-3 {
+        
+        .form-row-asymmetric {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: 1fr 2fr; /* 1/3 para Sede, 2/3 para Carrera larga */
             gap: 20px;
             margin-bottom: 15px;
         }
+        
+        .form-row-dates {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr; /* Más espacio para la fecha, menos para modalidad y nota */
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
         .form-group {
             display: flex;
             flex-direction: column;
@@ -244,7 +254,14 @@
             width: 100%;
             display: block;
             height: auto;
-            margin-top: auto; /* Empuja la imagen hasta la parte más baja de la pantalla */
+            margin-top: auto;
+        }
+
+        /* --- RESPONSIVIDAD (Para móviles) --- */
+        @media (max-width: 600px) {
+            .form-row, .form-row-asymmetric, .form-row-dates {
+                grid-template-columns: 1fr; /* En pantallas pequeñas, pone un campo debajo del otro */
+            }
         }
     </style>
 </head>
@@ -258,7 +275,7 @@
             </div>
             
             <h2>CENTRO DE FORMACIÓN TÉCNICA</h2>
-            <p class="subtitle-prematricula">Certificado de Titulos</p>
+            <p class="subtitle-prematricula">Certificado de Títulos</p>
             <p class="text-prematricula">Datos de Titulados</p>
             
             <form id="formularioBohon">
@@ -275,11 +292,10 @@
                     </div>
                 </div>
 
-                <!-- Fila 2: Sede y Carrera (FIJOS) -->
-                <div class="form-row">
+                <!-- Fila 2: Sede y Carrera (NUEVO LAYOUT ASIMÉTRICO) -->
+                <div class="form-row-asymmetric">
                     <div class="form-group">
                         <label for="sede">Sede</label>
-                        <!-- ÚNICA OPCIÓN: LA SERENA -->
                         <select id="sede" name="sede">
                             <option value="La Serena" selected>La Serena</option>
                         </select>
@@ -290,15 +306,14 @@
                     </div>
                 </div>
 
-                <!-- Fila 3: Año, Modalidad y Nota (FIJOS) -->
-                <div class="form-row-3">
+                <!-- Fila 3: Año, Modalidad y Nota (NUEVO LAYOUT DE FECHAS) -->
+                <div class="form-row-dates">
                     <div class="form-group">
-                        <label for="egreso">Año de egreso</label>
+                        <label for="egreso">Fecha de egreso</label>
                         <input type="text" id="egreso" name="egreso" value="10 de agosto de 2024" readonly>
                     </div>
                     <div class="form-group">
-                        <label for="modalidad">Modalidad de estudios</label>
-                        <!-- ÚNICA OPCIÓN: DIURNA -->
+                        <label for="modalidad">Modalidad</label>
                         <select id="modalidad" name="modalidad">
                             <option value="Diurna" selected>Diurna</option>
                         </select>
@@ -321,7 +336,7 @@
                     </div>
                 </div>
 
-                <!-- Botón de Envío adaptado a la imagen -->
+                <!-- Botón de Envío -->
                 <button type="submit" class="btn-submit">HAZ CLICK AQUÍ ➔</button>
             </form>
 
